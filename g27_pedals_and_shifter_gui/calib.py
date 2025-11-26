@@ -463,7 +463,7 @@ def main():
         nonlocal vars
         gui = G27CalibGui()
         gui.setMinimumSize(1024, 700)
-        gui.setWindowTitle("G27 Pedalsand Shifter")
+        gui.setWindowTitle("G27 Pedals and Shifter")
         coll = Collector(vars["tty"])
         coll.valuesChanged.connect(gui.newVals)
         app.aboutToQuit.connect(coll.stop)

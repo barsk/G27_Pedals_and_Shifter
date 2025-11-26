@@ -5,6 +5,9 @@ Arduino-based USB interface for Logitech G27 pedals and shifter:
 ![on breadboard](screenshots/Breadboard.jpg)
 ![in altoids tin](screenshots/Altoids_Tin.jpg)
 
+![picture 0](screenshots/printed-box.jpg)
+
+
 ## Credits
 
 This fork wouldn't have been possible without the great project from functionreturnfunction: https://github.com/functionreturnfunction/G27_Pedals_and_Shifter. I am going to maintain this fork as long as my G27 shifter and pedals live on.
@@ -12,15 +15,43 @@ This fork wouldn't have been possible without the great project from functionret
 ## Required Parts/Materials
 
 * [SparkFun Pro Micro](https://www.sparkfun.com/products/12640) or clone (must be a 5V/16MHz ATmega32U4 with onboard USB)
-* [DB9 Connectors](http://www.amazon.com/Female-Male-Solder-Adapter-Connectors/dp/B008MU0OR4/ref=sr_1_1?ie=UTF8&qid=1457291922&sr=8-1&keywords=db9+connectors) 1 male, 1 female
+* [DB9 Connectors](http://www.amazon.com/Female-Male-Solder-Adapter-Connectors/dp/B008MU0OR4/ref=sr_1_1?ie=UTF8&qid=1457291922&sr=8-1&keywords=db9+connectors), 1 male, 1 female
 * Hookup wire in assorted colors (I used red, black, blue, green, purple, yellow, orange, and white)
 * Some kind of project box (I used an Altoids tin)
 
 ## Assembly
 
-Connect the female DB9 connector for the pedals to the board using the pins in the table in the .ino file.  Do the same with the male DB9 for the shifter.
+![DB9 pins](screenshots/db9-pinout.jpg)
 
-NOTE: when wiring the male connector for the shifter, remember that the pins will read right to left rather than left to right.
+### Pedal pins (Female connector)
+This is the wiring suggested by eriknz, which does not connect the pedal ground 
+to +5V (pedals need to be inverted in the calibration gui).
+
+Connect the female DB9 connector for the pedals to the board using the pins in the table.
+| DB9 | Original                            | Harness | Description | Pro Micro   |
+| --- | ----------------------------------- | ------- | ----------- | ----------- |
+| 1   | Black                               | Black   | GND         | GND         |
+| 2   | Orange                              | Yellow  | Throttle    | pin 18 (A0) |
+| 3   | White                               | White   | Brake       | pin 19 (A1) |
+| 4   | Green                               | Green   | Clutch      | pin 20 (A2) |
+| 5   |                                     |         |             |             |
+| 6   | connected *in pedals* plug to pin 9 |         | (+5V)       |             |
+| 7   |                                     |         |             |             |
+| 8   |                                     |         |             |             |
+| 9   | Red                                 | Red     | +5V         | +5V         |
+
+### Shifter pins (Male connector)
+| DB9 | Original | Harness | Shifter | Description             | Pro Micro   |
+| --- | -------- | ------- | ------- | ----------------------- | ----------- |
+| 1   | Purple   | Grey    | 1       | Button Clock            | pin 0       |
+| 2   | Grey     | purple  | 7       | Button Data             | pin 1       |
+| 3   | Yellow   | white   | 5       | Button !CS & !PL (Mode) | pin 4       |
+| 4   | Orange   | blue    | 3       | Shifter X axis          | pin 8  (A8) |
+| 5   | White    | green   | 2       | SPI input               |             |
+| 6   | Black    | black   | 8       | GND                     | GND         |
+| 7   | Red      | brown   | 6       | +5V                     | VCC         |
+| 8   | Green    | yellow  | 4       | Shifter Y axis          | pin 9 (A9)  |
+| 9   | Red      | Red     | 1       | +5V                     | VCC         |
 
 ## Firmware
 
@@ -61,7 +92,7 @@ At first you need to select the Arduino serial device (note that this is **not**
 
 ![device selector](screenshots/device_selector.png)
 
-When everything is set correctly, press the Start button. You are presented with the calibration/configurtion GUI:
+When everything is set correctly, press the Start button. You are presented with the calibration/configuration GUI:
 
 ![gui screenshot](screenshots/gui_in_action.png)
 
