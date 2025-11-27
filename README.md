@@ -28,7 +28,6 @@ Original (old) solution<br>
 
 ## Assembly
 
-
 ![DB9 pins](screenshots/db9-pinout.jpg)
 
 Connect the DB9 pin -> Pro Micro Pin as depicted below.
@@ -61,6 +60,16 @@ Connect the female DB9 connector for the pedals to the board using the pins in t
 | 7   | brown       | 6       | +5V                     | VCC         |
 | 8   | yellow      | 4       | Shifter Y axis          | pin 9 (A9)  |
 | 9   | red         | 1       | +5V                     | VCC         |
+
+## Perfboard and wiring
+If a perfboard is used, which is required to fit the 3D printed box, mount the Micro Pro microprocessor board at the topmost row on the 4th column from the left. That will center the USB connector with the hole in the box. Then use the suggested wiring schematic or come up with your own. The important thing here is that the DB pins are connected to the Micro Pro pins in accordance with the table.
+
+![fritzing](Fritzing/Wiring-perfboard_bb.jpg)
+
+> [!Note]
+> The pin 0 and pin 1 (Tx & RX) on the Pro Micro come in reversed order! Easy to swap those wires!
+
+![picture 1](screenshots/pro-micro-pinout.jpg)  
 
 ## Firmware
 
