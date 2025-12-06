@@ -2,22 +2,22 @@
 
 Arduino based USB interface for Logitech G27/G29 pedals and shifter. Note that G29 is not implemented yet (needs another means of entering calibration active mode as button are not there). I will look into it if there is demand.
 
-This is a fork of n-e-y-s-devel's version which in turn is a fork of the original great project from functionreturnfunction: https://github.com/functionreturnfunction/G27_Pedals_and_Shifter. Both of those repos are  abandoned so I have cleaned up a few things, removed the custom Joystick implementation and replaced with the standard Arduino Joystick from MHeironimus (which must be added in Arduino IDE).
+This is a continuation by @Barsk as new collaborator on the works of @n-e-y-s and @functionreturnfunction: https://github.com/functionreturnfunction/G27_Pedals_and_Shifter. 
 
+I have cleaned up a few things, removed the custom Joystick implementation and replaced with the standard Arduino Joystick from MHeironimus (which must be added in Arduino IDE).
 
 > [!Note]
 > *The Dpad is now supported as a proper Hat switch (8 directions), instead of 4 buttons!*
 
-I changed throttle, brake and clutch to use the axis Rx, Ry and Z so that the joystick control panel test view in Windows presents these in a nicer way. That has no impact in games as you can map any axis as throttle, brake and clutch.
+I changed throttle, brake and clutch to use the axis Rx, Ry and Z so that the joystick control panel test view in Windows presents these in a better way. That has no impact in games as you can map any axis as throttle, brake and clutch.
 
-I have also made a nice 3D printed box that is included in the CAD folder. Use the 3MF file version of the lid if you have a multi color capable printer for a nice text. The STL version prints a solid lid with no text.
+I have also made a nice 3D printed box that is included in the CAD folder. Use the 3MF file version of the lid if you have a multi color capable printer for a nice text effect. The STL version prints a solid lid with no text.
 
 ![printed box](screenshots/box-final.jpg)
 ![on breadboard](screenshots/perfboard-box.jpg)
 
-Original (old) solution<br>
+Original (older) solution<br>
 ![in altoids tin](screenshots/Altoids_Tin.jpg)
-
 
 ## Required Parts/Materials
 
