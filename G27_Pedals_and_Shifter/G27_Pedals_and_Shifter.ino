@@ -6,7 +6,7 @@
 
 #include <HID.h>
 #include <EEPROM.h>
-#include "./src/G27PedalsShifter.h"
+#include <Joystick.h>
 #include "./src/Filter.h"
 
 // LED PINS
@@ -79,6 +79,8 @@
 #define BUTTON_DPAD_BOTTOM     14
 #define BUTTON_DPAD_TOP        15
 
+// Gears are mapped to output 0-6
+
 #define OUTPUT_BLACK_TOP       7
 #define OUTPUT_BLACK_LEFT      8
 #define OUTPUT_BLACK_RIGHT     9
@@ -111,6 +113,14 @@
 
 #define FLAG3_ENABLE_SHIFTER 0x1
 #define FLAG3_CLUTCH_DEAD_ZONE (0x10|0x20|0x40) // deadZone_percent = ((flag & FLAG3_CLUTCH_DEAD_ZONE) >> 4)*2
+
+Joystick_ G27(            // define Joystick parameters
+  5,  
+  JOYSTICK_TYPE_JOYSTICK,      // type Joystick
+  19, 1,                       // Button Count, Hat Switch Count
+  false, false, true,               // X, Y, Z
+  true,true,false,                  // Rx, Ry, Rz
+  false,false,false,false,false);   // Throttle, Rudder, Accelerator, Brake, Steering 
 
 typedef struct CalibData
 {
@@ -180,7 +190,7 @@ unsigned long crc(uint8_t *buffer, uint16_t length) {
 
   unsigned long crc = ~0L;
 
-  for (int index = 0 ; index < length ; ++index) {
+  for (uint8_t index = 0 ; index < length ; ++index) {
     crc = crc_table[(crc ^ buffer[index]) & 0x0f] ^ (crc >> 4);
     crc = crc_table[(crc ^ (buffer[index] >> 4)) & 0x0f] ^ (crc >> 4);
     crc = ~crc;
@@ -192,6 +202,7 @@ static int crcError = 0;
 static int magicNumberError = 0;
 static int lastCrcFromEEPROM = 0;
 static int lastCrcFromContents = 0;
+
 void loadEEPROM()
 {
   Calibration fromEEPROM;
@@ -260,12 +271,12 @@ void processPedal(struct Pedal* input, SignalFilter *flt, uint8_t filterSize, in
 
 void setXAxis(void* in) {
   Pedal* input = (Pedal*)in;
-  G27.setXAxis(input->axis);
+  G27.setRxAxis(input->axis);
 }
 
 void setYAxis(void* in) {
   Pedal* input = (Pedal*)in;
-  G27.setYAxis(input->axis);
+  G27.setRyAxis(input->axis);
 }
 
 void setZAxis(void* in) {
@@ -318,7 +329,7 @@ void getShifterPosition(int *ret) {
 
 int getCurrentGear(int shifterPosition[], int btns[]) {
   static int gear = 0;  // default to neutral
-  int x = shifterPosition[0], y = shifterPosition[1];
+  uint16_t x = shifterPosition[0], y = shifterPosition[1];
   
   if (y < calibration.data.shifter_y_neutralMax && y > calibration.data.shifter_y_neutralMin)
   {
@@ -414,12 +425,51 @@ void setButtonStates(int buttons[], int gear) {
     debug.out_buttons |= 1 << (gear - 1);
   }
 
-  for (byte i = BUTTON_RED_CENTERRIGHT; i <= BUTTON_DPAD_TOP; ++i) {
+  for (byte i = BUTTON_RED_CENTERRIGHT; i <= BUTTON_BLACK_BOTTOM; ++i) {
     G27.setButton(buttonTable[i], buttons[i]);
     if( buttons[i] )
     {
       debug.out_buttons |= 1 << buttonTable[i];
     }
+  }
+
+  // Hat switch (D-Pad)
+  byte hatSwitchState = 0;
+  hatSwitchState |= (buttons[BUTTON_DPAD_TOP] << 0);
+  hatSwitchState |= (buttons[BUTTON_DPAD_RIGHT] << 1);
+  hatSwitchState |= (buttons[BUTTON_DPAD_BOTTOM] << 2);
+  hatSwitchState |= (buttons[BUTTON_DPAD_LEFT] << 3);
+
+  switch (hatSwitchState)
+  {
+  case 0B00000001:
+    G27.setHatSwitch(0, 0); // up
+    break;
+  case 0B00000011:
+    G27.setHatSwitch(0, 45); // up right
+    break;
+  case 0B00000010:
+    G27.setHatSwitch(0, 90); // right
+    break;
+  case 0B00000110:
+    G27.setHatSwitch(0, 135); // down right
+    break;
+  case 0B00000100:
+    G27.setHatSwitch(0, 180); // down
+    break;
+  case 0B00001100:
+    G27.setHatSwitch(0, 225); // down left
+    break;
+  case 0B00001000:
+    G27.setHatSwitch(0, 270); // left
+    break;
+  case 0B00001001:
+    G27.setHatSwitch(0, 315); // up left
+    break;
+  case 0B00000000:
+    G27.setHatSwitch(0, -1); // no direction
+  default:
+    break;
   }
 }
 
@@ -440,13 +490,15 @@ void set_dead_zone(uint8_t dz, int pedal, CalibData *calib)
             calib->flag3 &= ~(FLAG3_CLUTCH_DEAD_ZONE);
             calib->flag3 |= (dz) << 4;
             break;
+        default:
+          break;
     }
 }
 
-#define CALIB_MIN(calibValue, curValue, minValue) if( calibValue < 0 || curValue < minValue ) { calibValue = minValue = curValue; }
-#define CALIB_MAX(calibValue, curValue, maxValue) if( calibValue < 0 || curValue > maxValue ) { calibValue = maxValue = curValue; }
+#define CALIB_MIN(calibValue, curValue, minValue) if( (int)calibValue < 0 || (int)curValue < (int)minValue ) { calibValue = minValue = curValue; }
+#define CALIB_MAX(calibValue, curValue, maxValue) if( (int)calibValue < 0 || (int)curValue > (int)maxValue ) { calibValue = maxValue = curValue; }
 #define CALIB_RANGE(calibValue, curValue, minValue, maxValue) \
-    { if( calibValue < 0 ) { calibValue = minValue = maxValue = curValue; } \
+    { if( (int)calibValue < 0 ) { calibValue = minValue = maxValue = curValue; } \
       CALIB_MIN(calibValue, curValue, minValue); \
       CALIB_MAX(calibValue, curValue, maxValue); }
 
@@ -600,7 +652,6 @@ void calib(struct Pedal *gas, Pedal *brake, Pedal *clutch, int shifter_X, int sh
     debug.numCrcErrors = crcError;
     debug.numMagicNumErrors = magicNumberError;
     debug.profiling[3] = micros();
-    uint16_t s = sizeof(debug);
     Serial.write((const byte*)&debug, sizeof(debug));    
     debug.profiling[0] = debug.profiling[3];
   }
@@ -623,6 +674,8 @@ void calib(struct Pedal *gas, Pedal *brake, Pedal *clutch, int shifter_X, int sh
       case RECORD_X_SHIFTER_56:
         CALIB_MIN(calibValue, shifter_X, calibration.data.shifter_x_56);
         break;
+      default:
+        break;
     }
   }
   switch(currentMode)
@@ -636,6 +689,8 @@ void calib(struct Pedal *gas, Pedal *brake, Pedal *clutch, int shifter_X, int sh
     case RECORD_CLUTCH:         
       CALIB_RANGE(calibValue, clutch->cur, calibration.data.clutchMin, calibration.data.clutchMax);
       break;
+    default:
+        break;
   }
 }
 

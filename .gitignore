@@ -1,3 +1,7 @@
 .idea
 *.egg*
 __pycache__
+
+g27_pedals_and_shifter_gui/build/
+g27_pedals_and_shifter_gui/dist/calib.exe
+
