@@ -1,9 +1,11 @@
 # Logitech G27/G29 Pedals and Shifter USB Adapter
 
+> [!Important]
+> I (@n-e-y-s) can't maintain this repository any longer since I don't own the hardware anymore. @barsk has taken over recently: https://github.com/barsk/G27_Pedals_and_Shifte
+
 Arduino based USB interface for Logitech G27/G29 pedals and shifter. Note that G29 is not implemented yet (needs another means of entering calibration active mode as button are not there). I will look into it if there is demand.
 
-This is a continuation by @Barsk as new collaborator on the works of @n-e-y-s and @functionreturnfunction: https://github.com/functionreturnfunction/G27_Pedals_and_Shifter. 
-
+This is a continuation by @barsk as new collaborator on the works of @n-e-y-s and @functionreturnfunction: https://github.com/functionreturnfunction/G27_Pedals_and_Shifter. 
 I have cleaned up a few things, removed the custom Joystick implementation and replaced with the standard Arduino Joystick from MHeironimus (which must be added in Arduino IDE).
 
 > [!Note]
