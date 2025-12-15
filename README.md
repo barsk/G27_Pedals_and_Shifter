@@ -1,19 +1,14 @@
-# Logitech G27/G29 Pedals and Shifter USB Adapter
+# Logitech G27/G29/G920/G923 Pedals and Shifter USB Adapter
+*@barsk has taken over as maintainer of this repo after @n-e-y-s. This repo is forked from @functionruturnfunction, https://github.com/functionreturnfunction/G27_Pedals_and_Shifter.*
 
-> [!Important]
-> I (@n-e-y-s) can't maintain this repository any longer since I don't own the hardware anymore. @barsk has taken over recently as collaborator and merged all updates into this repo now.
+An USB adapter for the pedals and shifter to bypass the wheel base and treat them as a standalone device. G29/G920/G923 pedals should also work as the DB9 pinout is reportedly the same. Please use the discussions section to **report** wether it works or not with the G29 and later pedals, thanks!
 
-Arduino based USB interface for Logitech G27/G29 pedals and shifter. Note that G29 is not implemented yet (needs another means of entering calibration active mode as button are not there). I will look into it if there is demand.
+The Logitech Driving Force Shifter used for G29 and later may be supported later, work in progress.
 
-This is a continuation by @barsk as new collaborator on the works of @n-e-y-s and @functionreturnfunction: https://github.com/functionreturnfunction/G27_Pedals_and_Shifter. 
-I have cleaned up a few things, removed the custom Joystick implementation and replaced with the standard Arduino Joystick from MHeironimus (which must be added in Arduino IDE).
-
-> [!Note]
-> *The Dpad is now supported as a proper Hat switch (8 directions), instead of 4 buttons!*
-
-I changed throttle, brake and clutch to use the axis Rx, Ry and Z so that the joystick control panel test view in Windows presents these in a better way. That has no impact in games as you can map any axis as throttle, brake and clutch.
-
-I have also made a nice 3D printed box that is included in the CAD folder. Use the 3MF file version of the lid if you have a multi color capable printer for a nice text effect. The STL version prints a solid lid with no text.
+## Latest developments
+* The Dpad is now supported as a proper Hat switch (8 directions), instead of 4 buttons!*
+* Throttle, brake and clutch now uses the axis Rx, Ry and Z so that the joystick control panel test view in Windows presents these in a better way. That has no impact in games as you can map any axis as throttle, brake and clutch.
+* A 3D printed box is included in the CAD folder. Use the 3MF file version of the lid if you have a multi color capable printer for a nice text effect. The STL version prints a solid lid with no text.
 
 ![printed box](screenshots/box-final.jpg)
 ![on breadboard](screenshots/perfboard-box.jpg)
