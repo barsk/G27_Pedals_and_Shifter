@@ -69,7 +69,7 @@ Connect the female DB9 connector for the pedals to the board using the pins in t
 ## Perfboard and wiring
 If a perfboard is used, which is required to fit the 3D printed box, mount the Micro Pro microprocessor board at the topmost row on the 4th column from the left. That will center the USB connector with the hole in the box. Then use the suggested wiring schematic or come up with your own. 
 
-*The Fritzing sketch makes the DB9 pins not so clear, which makes this a bit unreadable unfortunately. The important thing here is that the DB pins are connected to the Micro Pro pins in accordance with the table. However the position of the Pro Micro in refrence to the perfboard is physically correct - and should be used if you want to use the printed 3D box .<br>
+The Fritzing sketch makes the DB9 pins not so clear, which makes this a bit unreadable unfortunately. The important thing here is that the DB pins are connected to the Micro Pro pins in accordance with the table. However the position of the Pro Micro in refrence to the perfboard is physically correct - and should be used if you want to use the printed 3D box.<br>
 ![fritzing](Fritzing/Wiring-perfboard_bb.jpg)
 ![soldering](screenshots/perfboard-bottom.jpg)
 
