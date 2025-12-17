@@ -28,7 +28,25 @@ Original (older) solution<br>
 
 ![DB9 pins](screenshots/db9-pinout.jpg)
 
-Connect the DB9 pin -> Pro Micro Pin as depicted below.
+Connect the DB9 pin -> Pro Micro Pin as indicated below.
+
+![picture 1](screenshots/pro-micro-pinout.jpg)  
+
+> [!Note]
+> TX**0** = pin **1** and RX**1** = pin**0** on the Pro Micro come in confusing order! Easy to swap reverse those wires!!
+
+### Shifter pins (Male connector)
+| DB9 | Color       | Shifter | Description             | Pro Micro   |
+| --- | ----------- | ------- | ----------------------- | ----------- |
+| 1   | purple      | 1       | Button Clock            | pin 0  (RX1) |
+| 2   | Grey        | 7       | Button Data             | pin 1  (TX0) |
+| 3   | white       | 5       | Button !CS & !PL (Mode) | pin 4       |
+| 4   | blue        | 3       | Shifter X axis          | pin 8  (A8) |
+| 5   | green       | 2       | SPI input               |             |
+| 6   | black       | 8       | GND                     | GND         |
+| 7   | brown       | 6       | +5V                     | VCC         |
+| 8   | yellow      | 4       | Shifter Y axis          | pin 9 (A9)  |
+| 9   | red         | 1       | +5V                     | VCC         |
 
 ### Pedal pins (Female connector)
 This is the updated wiring suggested by eriknz, which has proper connections to Vcc and GND.<br>
@@ -47,28 +65,17 @@ Connect the female DB9 connector for the pedals to the board using the pins in t
 | 8   |                                     |             |             |
 | 9   | red                                 | +5V         | +5V         |
 
-### Shifter pins (Male connector)
-| DB9 | Color | Shifter | Description             | Pro Micro   |
-| --- | ----------- | ------- | ----------------------- | ----------- |
-| 1   | purple      | 7       | Button Data             | pin 1       |
-| 3   | white       | 5       | Button !CS & !PL (Mode) | pin 4       |
-| 4   | blue        | 3       | Shifter X axis          | pin 8  (A8) |
-| 5   | green       | 2       | SPI input               |             |
-| 6   | black       | 8       | GND                     | GND         |
-| 7   | brown       | 6       | +5V                     | VCC         |
-| 8   | yellow      | 4       | Shifter Y axis          | pin 9 (A9)  |
-| 9   | red         | 1       | +5V                     | VCC         |
 
 ## Perfboard and wiring
-If a perfboard is used, which is required to fit the 3D printed box, mount the Micro Pro microprocessor board at the topmost row on the 4th column from the left. That will center the USB connector with the hole in the box. Then use the suggested wiring schematic or come up with your own. The important thing here is that the DB pins are connected to the Micro Pro pins in accordance with the table.
+If a perfboard is used, which is required to fit the 3D printed box, mount the Micro Pro microprocessor board at the topmost row on the 4th column from the left. That will center the USB connector with the hole in the box. Then use the suggested wiring schematic or come up with your own. 
 
+*The Fritzing sketch makes the DB9 pins not so clear, which makes this a bit unreadable unfortunately. The important thing here is that the DB pins are connected to the Micro Pro pins in accordance with the table. However the position of the Pro Micro in refrence to the perfboard is physically correct - and should be used if you want to use the printed 3D box .<br>
 ![fritzing](Fritzing/Wiring-perfboard_bb.jpg)
 ![soldering](screenshots/perfboard-bottom.jpg)
 
-> [!Note]
-> The pin 0 and pin 1 (Tx & RX) on the Pro Micro come in reversed order! Easy to swap those wires!
 
-![picture 1](screenshots/pro-micro-pinout.jpg)  
+
+
 
 ## Firmware
 
