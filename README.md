@@ -6,7 +6,7 @@ An USB adapter for the pedals and shifter to bypass the wheel base and treat the
 The Logitech Driving Force Shifter used for G29 and later may be supported later, work in progress.
 
 ## Latest developments
-* The Dpad is now supported as a proper Hat switch (8 directions), instead of 4 buttons!*
+* The Dpad is now supported as a proper Hat switch (8 directions), instead of 4 buttons!
 * Throttle, brake and clutch now uses the axis Rx, Ry and Z so that the joystick control panel test view in Windows presents these in a better way. That has no impact in games as you can map any axis as throttle, brake and clutch.
 * A 3D printed box is included in the CAD folder. Use the 3MF file version of the lid if you have a multi color capable printer for a nice text effect. The STL version prints a solid lid with no text.
 
@@ -33,7 +33,7 @@ Connect the DB9 pin -> Pro Micro Pin as indicated below.
 ![picture 1](screenshots/pro-micro-pinout.jpg)  
 
 > [!Note]
-> TX**0** = pin **1** and RX**1** = pin**0** on the Pro Micro come in confusing order! Easy to swap reverse those wires!!
+> TX**0** = pin **1** and RX**1** = pin**0** on the Pro Micro come in confusing order! Easy to swap those wires!!
 
 ### Shifter pins (Male connector)
 | DB9 | Color       | Shifter | Description             | Pro Micro   |
