@@ -73,10 +73,6 @@ The Fritzing sketch makes the DB9 pins not so clear, which makes this a bit unre
 ![fritzing](Fritzing/Wiring-perfboard_bb.jpg)
 ![soldering](screenshots/perfboard-bottom.jpg)
 
-
-
-
-
 ## Firmware
 
 Open the .ino file in the Arduino IDE, select the proper board type and COM port under "Tools" (you will need to install the [SparkFun board library](https://github.com/sparkfun/Arduino_Boards)). Also install the Arduino Joystick from MHeironimus.
@@ -137,17 +133,18 @@ When everything is set correctly, press the Start button. You are presented with
 
 On the upper right, you get some help text about what to do next. Using that everything shall be pretty self-explaining. The graphs in the lower part are for the pedals and the shifter respectively. You see the measurements over the last second depicted with the "+" marks. 
 
-> [!Tip]
-> When the GUI menstions you should "move" the shifter with the leftmost red button pressed, it means that the areas you are creating with those movements are the *target area* for the shifter positions. Make sure the areas are large enough to cover the position each gear may have as well as the idle postion, and that no area is too close to another to create a false detection.<br>
+> [!Note]
+> When the GUI mentions you should "move" the shifter with the leftmost red button pressed, it means that the areas you are creating with those movements are the *target area* for the shifter positions. Make sure the areas are large enough to cover the position each gear may have as well as the idle postion, and that no area is too close to another to create a false detection.<br>
 When a gear is moved into a target area that will trigger a virtual button to be pressed. Gear 1 pushes button 1 and so on.
 
 The first step is to decide for a suitable filtering. Depending on the wear of your device, the measurements can be quite noisy and so it might be desirable to enable the median filtering in the options panel. When changing the values you will see the immediate effect on the measurements.
 
-Afterwards you probably want at least to calibrate your shifter by selecting the calibration values for the shifter on the upper left panel. Optionally you can also pre-calibrate your pedals such that the values are stored on the Arduino. The default is to use auto-calibration for the pedals.
+> [!Tip]
+> If you see a noisy jittery signal from the pedals (and meybe also the shifter), a better solution that filtring is to clean the surfaces of the potentiometers with a can of electronics cleaner spray, which exists for this exact purpose. You will have to open up the casing in order to do get proper access to the potentiometers and spray a small amount inside the pots. I use a Finnish product called "Kontakt PRF 7-78", which cleans and lubricates the carbon surface perfectly, making it as new again and also causing it to have some protection from oxidating again (as it seems in my experience). There is another product called DeOxit that comes in different kinds. You specifically want the F5 one, and not one of the others as those are for connectors, not pots! Some more info here: [YouTube video(]https://www.youtube.com/watch?v=wFP0vSJexFQ)
 
-Note that there is the status line output with some profiling output on the left side and the final output values of the axis, buttons and gear value as delivered to the games. 
+Note the status line output in the GUI with some profiling output on the left side and the final output values of the axis, buttons and gear value as delivered to the games. 
 
-Last step is to save the settings to the Arduino's EEPROM using the respective button. You can test that this has been working by going back to the default calibration (plots should change) and then reloading the EEPROM calibration (plots should change to the desired values). Everytime you turn on the Arduino it loads the EEPROM calibration automatically from now on.
+Last step is to ***save the settings*** to the Arduino's EEPROM using the respective button. You can test that this has been working by going back to the default calibration (plots should change) and then reloading the EEPROM calibration (plots should change to the desired values). Everytime you turn on the Arduino it loads the EEPROM calibration values automatically from now on.
 
 ## Known issues
 * (see here: https://github.com/n-e-y-s/G27_Pedals_and_Shifter/issues/1): On windows, the arduino will be slow after closing the GUI. To fix that, you can unplug the USB connector and then connect again.
