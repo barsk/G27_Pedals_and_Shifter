@@ -33,13 +33,13 @@ Connect the DB9 pin -> Pro Micro Pin as indicated below.
 ![picture 1](screenshots/pro-micro-pinout.jpg)  
 
 > [!Note]
-> TX**0** = pin **1** and RX**1** = pin**0** on the Pro Micro come in confusing order! Easy to swap those wires!!
+> TX**0** = pin **1** and RX**1** = pin **0** on the Pro Micro come in confusing order! Easy to swap those wires!!
 
 ### Shifter pins (Male connector)
 | DB9 | Color       | Shifter | Description             | Pro Micro   |
 | --- | ----------- | ------- | ----------------------- | ----------- |
 | 1   | purple      | 1       | Button Clock            | pin 0  (RX1) |
-| 2   | Grey        | 7       | Button Data             | pin 1  (TX0) |
+| 2   | grey        | 7       | Button Data             | pin 1  (TX0) |
 | 3   | white       | 5       | Button !CS & !PL (Mode) | pin 4       |
 | 4   | blue        | 3       | Shifter X axis          | pin 8  (A8) |
 | 5   | green       | 2       | SPI input               |             |
